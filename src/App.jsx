@@ -7,6 +7,14 @@ const Button = (props) => (
   </button>
 )
 
+const StatisticLine = (props) => {
+  return (
+    <div>
+      <strong>{props.text}: </strong> {props.value} <br />
+    </div>
+  )
+}
+
 const Statistics = (props) => {
   const good = props.good
   const neutral = props.neutral
@@ -14,31 +22,29 @@ const Statistics = (props) => {
   const sum = props.sum
   const aver = props.aver
   const averGood = props.averGood
-  const comp = props.comp
-  
-  if (comp) {
-    return (
-      <div>
-        <h2>Statistics</h2>
-        <p>
-        <strong>Good: </strong> {good} <br />
-        <strong>Neutral: </strong> {neutral} <br />
-        <strong>Bad: </strong> {bad} <br />
-        <strong>All: </strong> {sum} <br />
-        <strong>Average: </strong> {aver} <br />
-        <strong>Positive: </strong> {averGood}%
-      </p>
-      </div>
-    )
-  } else {
+
+  if (sum === 0) {
     return (
       <div>
         <h2>Statistics</h2>
         <p>No feedback given</p>
       </div>
     )
+  } else {
+    return(
+      <div>
+        <h2>Statistics</h2>
+        <StatisticLine text='Good' value={good}/>
+        <StatisticLine text='Neutral' value={neutral}/>
+        <StatisticLine text='Bad' value={bad}/>
+        <StatisticLine text='All' value={sum}/>
+        <StatisticLine text='Average' value={aver}/>
+        <StatisticLine text='Positive' value={averGood}/>
+      </div>
+    )
   }
 }
+
 
 const App = () => {
 
@@ -65,12 +71,6 @@ const App = () => {
     setBad(badRev)
   }
 
-  let comp = true
-
-  if (sum === 0) {
-    comp = false
-  }
-
 
   return (
     <div>
@@ -78,8 +78,8 @@ const App = () => {
       <Button handleClick={() => setToGood(good + 1)} text="Good" />
       <Button handleClick={() => setToNeutral(neutral + 1)} text="Neutral" />
       <Button handleClick={() => setToBad(bad + 1)} text="Bad" />
-      <Statistics good={good} neutral={neutral} bad={bad} sum={sum} 
-      aver={aver} averGood={averGood} comp={comp} />
+      <Statistics good={good} neutral={neutral} bad={bad} sum={sum}
+        aver={aver} averGood={averGood} />
     </div>
   )
 }
