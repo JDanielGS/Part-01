@@ -10,7 +10,14 @@ const Button = (props) => (
 const StatisticLine = (props) => {
   return (
     <div>
-      <strong>{props.text}: </strong> {props.value} <br />
+      <table>
+        <tbody>
+          <tr>
+          <td><strong>{props.text}: </strong></td>
+          <td>{props.value}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
@@ -34,12 +41,12 @@ const Statistics = (props) => {
     return(
       <div>
         <h2>Statistics</h2>
-        <StatisticLine text='Good' value={good}/>
-        <StatisticLine text='Neutral' value={neutral}/>
-        <StatisticLine text='Bad' value={bad}/>
-        <StatisticLine text='All' value={sum}/>
+        {good > 0 && <StatisticLine text='Good' value={good}/>}
+        {neutral > 0 && <StatisticLine text='Neutral' value={neutral}/>}
+        {bad > 0 && <StatisticLine text='Bad' value={bad}/>}
+        {sum > 0 && <StatisticLine text='All' value={sum}/>}
         <StatisticLine text='Average' value={aver}/>
-        <StatisticLine text='Positive' value={averGood}/>
+        {averGood > 0 && <StatisticLine text='Positive' value={averGood}/>}
       </div>
     )
   }
@@ -79,7 +86,7 @@ const App = () => {
       <Button handleClick={() => setToNeutral(neutral + 1)} text="Neutral" />
       <Button handleClick={() => setToBad(bad + 1)} text="Bad" />
       <Statistics good={good} neutral={neutral} bad={bad} sum={sum}
-        aver={aver} averGood={averGood} />
+        aver={aver.toFixed(2)} averGood={averGood.toFixed(2)} />
     </div>
   )
 }
