@@ -75,7 +75,7 @@ const App = () => {
       <Button handleClick={() => setToSelected(Math.floor(Math.random() * 8))}
         text="Next Anecdote" />
       <BestAnecdote title='Anecdote with most votes' 
-      anecdote={anecdotes[mostVoted]} votes={votes[selected]}/>
+      anecdote={anecdotes[mostVoted]} votes={votes[mostVoted]}/>
     </div>
   )
 }
